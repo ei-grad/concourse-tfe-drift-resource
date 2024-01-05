@@ -10,13 +10,21 @@
 
 Concourse resource for Terraform Cloud and Terraform Enterprise using [Hashicorp's go-tfe library](https://github.com/hashicorp/go-tfe).
 
-## Maintenance Notes
+## IN DEVELOPMENT
 
-- This resource is effectively feature complete, and no major updates are expected in the near term. If you'd like to see
-a new feature, please create an issue.
-  - If your feature request involves features of paid Terraform Cloud or Terraform Enterprise, you may need to provide
-    access to a workspace for testing, since I only have access to the free Terraform Cloud.
-- Dependabot checks direct dependencies weekly; dependency updates will be released as patch versions.
+This repository, available at
+https://github.com/ei-grad/concourse-tfe-drift-resource, is a fork of
+https://github.com/orstensemantics/concourse-tfe-resource. It's being actively
+developed to modify the core functionality to be suitable to perform drift
+detection.
+
+The original repository triggers an 'apply' on the 'get' operation, this fork
+aims to run a 'plan' pipeline on the 'check' operation. Additionally, it will
+create a new resource state version if there are changes detected. The 'get'
+operation is designed to provide terraform resource IDs that would be added,
+changed, or removed upon an 'apply' in the 'plan'. The actual 'apply' will be
+executed via the 'put' operation. Please note that this is a work in progress
+and subject to ongoing development and changes.
 
 ## Usage
 ```yaml
