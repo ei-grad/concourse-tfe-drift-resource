@@ -27,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: orstensemantics/concourse-tfe-resource:latest,orstensemantics/concourse-tfe-resource:${{ github.event.release.tag_name }}
+          tags: eigrad/concourse-tfe-drift-resource:latest,eigrad/concourse-tfe-drift-resource:${{ github.event.release.tag_name }}
