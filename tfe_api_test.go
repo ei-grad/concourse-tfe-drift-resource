@@ -1,4 +1,4 @@
-package concourse_tfe_resource
+package concourse_tfe_drift_resource
 
 import (
 	"fmt"

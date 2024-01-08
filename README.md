@@ -1,4 +1,4 @@
-# concourse-tfe-resource
+# concourse-tfe-drift-resource
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/ei-grad/concourse-tfe-drift-resource)](https://goreportcard.com/report/github.com/ei-grad/concourse-tfe-drift-resource)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7dd55f613030fef89324/maintainability)](https://codeclimate.com/github/ei-grad/concourse-tfe-drift-resource/maintainability)

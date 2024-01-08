@@ -1,4 +1,4 @@
-module concourse-tfe-resource
+module concourse-tfe-drift-resource
 
 go 1.19
 

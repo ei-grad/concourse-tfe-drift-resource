@@ -1,13 +1,13 @@
 FROM golang:alpine as build
 
-WORKDIR /go/src/concourse-tfe-resource
+WORKDIR /go/src/concourse-tfe-drift-resource
 COPY . .
 
 RUN go build -o check
 
 FROM alpine
 
-COPY --from=build /go/src/concourse-tfe-resource/check /check
+COPY --from=build /go/src/concourse-tfe-drift-resource/check /check
 
 RUN mkdir -p /opt/resource \
  && mv /check /opt/resource \

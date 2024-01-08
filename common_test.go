@@ -1,7 +1,7 @@
-package concourse_tfe_resource
+package concourse_tfe_drift_resource
 
 import (
-	"concourse-tfe-resource/mock-go-tfe"
+	"concourse-tfe-drift-resource/mock-go-tfe"
 	"github.com/hashicorp/go-tfe"
 	"go.uber.org/mock/gomock"
 	"strings"
