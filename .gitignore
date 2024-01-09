@@ -1,4 +1,4 @@
-.idea
+concourse-tfe-drift-resource
 in
 out
 check
@@ -6,3 +6,4 @@ cover.out
 coverage.html
 mock-go-tfe
 test_output
+readable-test-file

@@ -1,23 +1,25 @@
-.PHONY: check build
+%PHONY: test
 
-build:
-	go build -o check
-	ln -s check in || true
-	ln -s check out || true
+build: check in out
 
+concourse-tfe-drift-resource: *.go
+	go build
+
+LINKS := check in out
+$(LINKS): concourse-tfe-drift-resource
+	ln -fs ./concourse-tfe-drift-resource $@
+
+# go install go.uber.org/mock/mockgen@latest
 makemocks:
 	mkdir -p mock-go-tfe
 	mockgen github.com/hashicorp/go-tfe Workspaces,Runs,Variables,StateVersions > mock-go-tfe/mocks.go
 
-test: makemocks
-	#golangci-lint run
-	chmod -R +w test_output || true
-	rm -r test_output || true
+test: *.go makemocks
 	go test -v -coverprofile cover.out -covermode=atomic
 	go tool cover -html=cover.out -o coverage.html
 
-check: test
-	golint -set_exit_status
+lint: check
+	golangci-lint run
 
 clean:
-	rm -r check in out cover.out coverage.html test_output || true
+	rm -rf concourse-tfe-drift-resource check in out cover.out coverage.html test_output

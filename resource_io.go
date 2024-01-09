@@ -1,4 +1,4 @@
-package concourse_tfe_drift_resource
+package main
 
 import (
 	"encoding/json"

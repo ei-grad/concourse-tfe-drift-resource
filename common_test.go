@@ -1,4 +1,4 @@
-package concourse_tfe_drift_resource
+package main
 
 import (
 	"concourse-tfe-drift-resource/mock-go-tfe"
