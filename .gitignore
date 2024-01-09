@@ -7,3 +7,4 @@ coverage.html
 mock-go-tfe
 test_output
 readable-test-file
+mockgen_test.go

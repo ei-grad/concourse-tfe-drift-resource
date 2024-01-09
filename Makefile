@@ -10,16 +10,19 @@ $(LINKS): concourse-tfe-drift-resource
 	ln -fs ./concourse-tfe-drift-resource $@
 
 # go install go.uber.org/mock/mockgen@latest
-makemocks:
-	mkdir -p mock-go-tfe
-	mockgen github.com/hashicorp/go-tfe Workspaces,Runs,Variables,StateVersions > mock-go-tfe/mocks.go
+mockgen_test.go:
+	mockgen \
+		-package main \
+		-destination mockgen_test.go \
+		github.com/hashicorp/go-tfe Workspaces,Runs,Variables,StateVersions
 
-test: *.go makemocks
+test: *.go mockgen_test.go
 	go test -v -coverprofile cover.out -covermode=atomic
 	go tool cover -html=cover.out -o coverage.html
 
 lint: check
 	golangci-lint run
 
+ARTIFACTS := concourse-tfe-drift-resource check in out cover.out coverage.html test_output mockgen_test.go
 clean:
-	rm -rf concourse-tfe-drift-resource check in out cover.out coverage.html test_output
+	rm -rf $(ARTIFACTS)

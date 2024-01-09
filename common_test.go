@@ -1,21 +1,21 @@
 package main
 
 import (
-	"concourse-tfe-drift-resource/mock-go-tfe"
-	"github.com/hashicorp/go-tfe"
-	"go.uber.org/mock/gomock"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/hashicorp/go-tfe"
+	"go.uber.org/mock/gomock"
 )
 
 var (
 	ctrl          *gomock.Controller
 	mockClient    tfe.Client
-	runs          *mock_go_tfe.MockRuns
-	workspaces    *mock_go_tfe.MockWorkspaces
-	variables     *mock_go_tfe.MockVariables
-	stateVersions *mock_go_tfe.MockStateVersions
+	runs          *MockRuns
+	workspaces    *MockWorkspaces
+	variables     *MockVariables
+	stateVersions *MockStateVersions
 	test          *testing.T
 )
 
@@ -25,13 +25,13 @@ func setup(t *testing.T) tfe.Run {
 
 	mockClient = tfe.Client{}
 	client = &mockClient
-	runs = mock_go_tfe.NewMockRuns(ctrl)
+	runs = NewMockRuns(ctrl)
 	client.Runs = runs
-	workspaces = mock_go_tfe.NewMockWorkspaces(ctrl)
+	workspaces = NewMockWorkspaces(ctrl)
 	client.Workspaces = workspaces
-	variables = mock_go_tfe.NewMockVariables(ctrl)
+	variables = NewMockVariables(ctrl)
 	client.Variables = variables
-	stateVersions = mock_go_tfe.NewMockStateVersions(ctrl)
+	stateVersions = NewMockStateVersions(ctrl)
 	client.StateVersions = stateVersions
 
 	workspace = &tfe.Workspace{
