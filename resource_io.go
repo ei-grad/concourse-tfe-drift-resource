@@ -43,7 +43,7 @@ type (
 		Vars          map[string]variableJSON `json:"vars"`
 		Message       string                  `json:"message"`
 		Confirm       bool                    `json:"confirm"`
-		PollingPeriod time.Duration           `json:"polling_period"`
+		PollingPeriod Duration                `json:"polling_period"`
 		Sensitive     bool                    `json:"sensitive"`
 		ApplyMessage  string                  `json:"apply_message"`
 	}
@@ -78,7 +78,7 @@ func getInputs(in io.Reader) (inputJSON, error) {
 	}
 	input.Params = paramsJSON{
 		Message:       "Queued by ${pipeline}/${job} (${number})",
-		PollingPeriod: 5,
+		PollingPeriod: Duration(8 * time.Hour),
 		Sensitive:     false,
 	}
 
@@ -127,7 +127,7 @@ func validateInput(input *inputJSON) (validConfig bool) {
 		log.Print("error in source configuration: token is not set")
 		validConfig = false
 	}
-	if input.Params.PollingPeriod < time.Minute {
+	if input.Params.PollingPeriod < Duration(time.Minute) {
 		log.Print("error in parameter value: polling_period must be at least 1 minute")
 		validConfig = false
 	}

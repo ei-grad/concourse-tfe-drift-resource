@@ -29,6 +29,11 @@ func startup(input inputJSON) error {
 		context.Background(),
 		input.Source.Organization,
 		input.Source.Workspace,
+		&tfe.WorkspaceReadOptions{
+			Include: []tfe.WSIncludeOpt{
+				tfe.WSCurrentrunConfigVerIngress,
+			},
+		},
 	)
 	if err != nil {
 		return formatError(err, "getting workspace")
