@@ -3,10 +3,11 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"github.com/hashicorp/go-tfe"
-	"go.uber.org/mock/gomock"
 	"strconv"
 	"testing"
+
+	"github.com/hashicorp/go-tfe"
+	"go.uber.org/mock/gomock"
 )
 
 func runList(start int, len int) (list tfe.RunList) {

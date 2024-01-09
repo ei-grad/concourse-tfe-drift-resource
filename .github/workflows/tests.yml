@@ -2,9 +2,9 @@ name: tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
 
@@ -25,19 +25,13 @@ jobs:
       - name: Get dependencies
         run: |
           go install go.uber.org/mock/mockgen@latest
-          go get github.com/hashicorp/go-tfe
-          mkdir -p mock-go-tfe
-          mockgen github.com/hashicorp/go-tfe Workspaces,Runs,Variables,StateVersions > mock-go-tfe/mocks.go
-          go get -v ./...
+          make mockgen_test.go
+          go mod download
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 --output cc-test-reporter
           chmod +x cc-test-reporter
 
       - name: Run tests
         env:
-          TFE_ADDRESS: https://app.terraform.io
-          TFE_ORGANIZATION: orstensemantics
-          TFE_WORKSPACE: tfe-resource-test
-          ATLAS_TOKEN: ${{secrets.ATLAS_TOKEN}}
           CC_TEST_REPORTER_ID: ${{secrets.CODECLIMATE_REPORTER_ID}}
         run: |
           ./cc-test-reporter before-build
