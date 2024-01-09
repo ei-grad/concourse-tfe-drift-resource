@@ -2,11 +2,12 @@ package main
 
 import (
 	"context"
-	tfe "github.com/hashicorp/go-tfe"
 	"io"
 	"log"
 	"os"
 	"path"
+
+	tfe "github.com/hashicorp/go-tfe"
 )
 
 var client *tfe.Client
@@ -24,9 +25,11 @@ func startup(input inputJSON) error {
 		return formatError(err, "creating tfe client")
 	}
 
-	workspace, err = client.Workspaces.Read(context.Background(),
+	workspace, err = client.Workspaces.ReadWithOptions(
+		context.Background(),
 		input.Source.Organization,
-		input.Source.Workspace)
+		input.Source.Workspace,
+	)
 	if err != nil {
 		return formatError(err, "getting workspace")
 	}

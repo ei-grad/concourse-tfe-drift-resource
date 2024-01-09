@@ -4,12 +4,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/drone/envsubst"
-	tfe "github.com/hashicorp/go-tfe"
 	"io"
 	"log"
 	"net/url"
 	"os"
+	"time"
+
+	"github.com/drone/envsubst"
+	tfe "github.com/hashicorp/go-tfe"
 )
 
 type (
@@ -41,7 +43,7 @@ type (
 		Vars          map[string]variableJSON `json:"vars"`
 		Message       string                  `json:"message"`
 		Confirm       bool                    `json:"confirm"`
-		PollingPeriod int                     `json:"polling_period"`
+		PollingPeriod time.Duration           `json:"polling_period"`
 		Sensitive     bool                    `json:"sensitive"`
 		ApplyMessage  string                  `json:"apply_message"`
 	}
@@ -125,8 +127,8 @@ func validateInput(input *inputJSON) (validConfig bool) {
 		log.Print("error in source configuration: token is not set")
 		validConfig = false
 	}
-	if input.Params.PollingPeriod < 1 {
-		log.Print("error in parameter value: polling_period must be at least 1 second")
+	if input.Params.PollingPeriod < time.Minute {
+		log.Print("error in parameter value: polling_period must be at least 1 minute")
 		validConfig = false
 	}
 	return validConfig
