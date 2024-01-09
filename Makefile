@@ -23,6 +23,6 @@ test: *.go mockgen_test.go
 lint: check
 	golangci-lint run
 
-ARTIFACTS := concourse-tfe-drift-resource check in out cover.out coverage.html test_output mockgen_test.go
+ARTIFACTS := concourse-tfe-drift-resource check in out cover.out coverage.html test_output mockgen_test.go readable-test-file
 clean:
 	rm -rf $(ARTIFACTS)
